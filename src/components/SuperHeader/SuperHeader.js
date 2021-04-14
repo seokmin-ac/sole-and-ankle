@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { COLORS } from '../../constants';
 
 import SearchInput from '../SearchInput';
-import UnstyledButton from '../UnstyledButton';
 import Icon from '../Icon';
 
 const SuperHeader = () => {
@@ -15,14 +14,17 @@ const SuperHeader = () => {
       </MarketingMessage>
       <SearchInput />
       <HelpLink href="/help">Help</HelpLink>
-      <UnstyledButton>
+      <IconWrapper>
         <Icon id="shopping-bag" strokeWidth={1} />
-      </UnstyledButton>
+      </IconWrapper>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  display: flex;
+  gap: 24px;
+  padding: 8px 32px;
   font-size: 0.875rem;
   color: ${COLORS.gray[300]};
   background-color: ${COLORS.gray[900]};
@@ -30,6 +32,7 @@ const Wrapper = styled.div`
 
 const MarketingMessage = styled.span`
   color: ${COLORS.white};
+  margin-right: auto;
 `;
 
 const HelpLink = styled.a`
@@ -40,6 +43,11 @@ const HelpLink = styled.a`
   &:not(:focus-visible) {
     outline: none;
   }
+`;
+
+const IconWrapper = styled.div`
+  width: 24px;
+  height: 24px;
 `;
 
 export default SuperHeader;
