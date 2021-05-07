@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "styled-components/macro";
+import React from 'react';
+import styled from 'styled-components/macro';
 
-import { COLORS, WEIGHTS } from "../../constants";
-import { formatPrice, pluralize, isNewShoe } from "../../utils";
-import Spacer from "../Spacer";
+import { COLORS, WEIGHTS } from '../../constants';
+import { formatPrice, pluralize, isNewShoe } from '../../utils';
+import Spacer from '../Spacer';
 
 const labelProps = {
-  "on-sale": {
+  'on-sale': {
     color: COLORS.primary,
-    text: "Sale",
+    text: 'Sale',
   },
-  "new-release": {
+  'new-release': {
     color: COLORS.secondary,
-    text: "Just released!",
+    text: 'Just released!',
   },
 };
 
@@ -50,7 +50,7 @@ const ShoeCard = ({
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
           {labelProp && (
-            <Label style={{ "--label-color": labelProp.color }}>
+            <Label style={{ '--label-color': labelProp.color }}>
               {labelProp.text}
             </Label>
           )}
@@ -58,10 +58,13 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price {...(salePrice && { className: 'on-sale' })}>
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
-          <ColorInfo>{pluralize("Color", numOfColors)}</ColorInfo>
+          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice>}
         </Row>
       </Wrapper>
     </Link>
@@ -101,6 +104,8 @@ const Label = styled.div`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -108,7 +113,12 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  &.on-sale {
+    color: ${COLORS.gray[700]};
+    text-decoration: line-through;
+  }
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
